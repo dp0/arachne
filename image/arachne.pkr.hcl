@@ -59,4 +59,28 @@ build {
     inline = ["chmod 0644 /etc/X11/Xsession.d/98x11-disable-dpms"]
   }
 
+  # Copy and install the application
+  provisioner "file" {
+    source = "../app"
+    destination = "/opt/arachne/"
+  }
+  provisioner "shell" {
+    inline = [
+      "find /opt/arachne/app -type d -exec chmod 0755 {} \\;",
+      "find /opt/arachne/app -type f -exec chmod 0644 {} \\;",
+      "chmod 0755 /opt/arachne/app/main.py"
+    ]
+  }
+  provisioner "file" {
+    source = "../etc/arachne.service"
+    destination = "/etc/systemd/system/arachne.service"
+  }
+  provisioner "shell" {
+    inline = [
+      "chmod 0644 /etc/systemd/system/arachne.service",
+      "systemctl daemon-reload",
+      "systemctl enable arachne"
+    ]
+  }
+
 }

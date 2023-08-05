@@ -1,0 +1,12 @@
+[Unit]
+Description=Arachne AI Image Frame
+
+[Service]
+ExecStart=/opt/arachne/app/main.py
+Restart=on-failure
+RestartSec=5
+User=pi
+Environment=DISPLAY=:0
+
+[Install]
+WantedBy=multi-user.target
