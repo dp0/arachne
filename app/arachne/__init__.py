@@ -5,7 +5,7 @@ Application to generate and display two captioned images side-by-side
 import os
 import sys
 
-from PyQt5.QtWidgets import QLabel, QMainWindow, QBoxLayout, QWidget
+from PyQt5.QtWidgets import QApplication, QLabel, QMainWindow, QBoxLayout, QWidget
 from PyQt5.QtGui import QPixmap, QFont
 from PyQt5.QtCore import Qt
 
@@ -61,7 +61,9 @@ class ImageGenerator(QMainWindow):
         self.setCentralWidget(central_widget)
 
         self.resize(1024,600)
+        self.setWindowFlags(Qt.Window | Qt.FramelessWindowHint | Qt.WindowStaysOnTopHint)
         self.showFullScreen()
+        QApplication.setOverrideCursor(Qt.BlankCursor)
 
     def update_image(self, left_path, left_caption, right_path, right_caption):
         """Updates the images and captions"""
