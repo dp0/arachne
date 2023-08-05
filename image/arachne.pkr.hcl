@@ -41,4 +41,16 @@ build {
     destination = "/opt/arachne/"
   }
 
+  # Copy the X11 config to prevent display power saving
+  provisioner "shell" {
+    inline = ["mkdir -p /etc/X11/Xsession.d/"]
+  }
+  provisioner "file" {
+    source = "../etc/98x11-disable-dpms"
+    destination = "/etc/X11/Xsession.d/"
+  }
+  provisioner "shell" {
+    inline = ["chmod 0644 /etc/X11/Xsession.d/98x11-disable-dpms"]
+  }
+
 }
