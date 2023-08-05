@@ -40,6 +40,12 @@ build {
     source = "../model"
     destination = "/opt/arachne/"
   }
+  provisioner "shell" {
+    inline = [
+      "find /opt/arachne/model -type d -exec chmod 0755 {} \\;",
+      "find /opt/arachne/model -type f -exec chmod 0644 {} \\;"
+    ]
+  }
 
   # Copy the X11 config to prevent display power saving
   provisioner "shell" {
